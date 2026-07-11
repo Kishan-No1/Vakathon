@@ -18,7 +18,7 @@ def load_plumes() -> list[dict]:
         r["lat"] = float(r["lat"])
         r["lon"] = float(r["lon"])
         r["leak_rate_kg_hr"] = float(r["leak_rate_kg_hr"])
-        r["wind_speed_kmh"] = float(r.get("wind_speed_kmh") or 0)
+        r["wind_speed_kmh"] = float(r.get("wind_speed_m_s") or 0) * 3.6
         r["wind_dir_deg"] = float(r.get("wind_dir_deg") or 0)
     return rows
 
