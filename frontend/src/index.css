@@ -1,18 +1,18 @@
 :root {
-  --bg: #0d1117;
-  --panel: #161b22;
-  --panel-2: #1c2330;
-  --border: #2d3646;
+  --bg: #10151d;
+  --panel: #1f2732;
+  --panel-2: #27313f;
+  --border: #34404f;
   --text: #c9d1d9;
   --text-dim: #8b949e;
   --heading: #f0f6fc;
   --nm: #2dd4bf;
   --tx: #fb923c;
-  --ok: #8b5cf6;
+  --ok: #3f6fce;
   --nm-text: #2dd4bf;
   --tx-text: #fb923c;
-  --ok-text: #a78bfa;
-  --accent: #3b82f6;
+  --ok-text: #7aa0e6;
+  --accent: #3f7dd1;
   --good: #34d399;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 3px 1px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 8px 3px rgba(0, 0, 0, 0.25);

@@ -1,11 +1,11 @@
 import { ScatterplotLayer } from "@deck.gl/layers";
 import { stateAbbr, type Plume, type ReportedPlume } from "../../api/client";
 
-// NM = teal, TX = orange, OK = violet — the state color story used across the app
+// NM = teal, TX = orange, OK = dark blue — the state color story used across the app
 export const STATE_COLORS: Record<string, [number, number, number]> = {
   NM: [45, 212, 191],
   TX: [251, 146, 60],
-  OK: [139, 92, 246],
+  OK: [63, 111, 206],
 };
 
 // matches CSS --heading; deck.gl draws to canvas and can't read CSS vars, keep in sync manually

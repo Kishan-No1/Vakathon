@@ -53,6 +53,27 @@
   flex: 1;
 }
 
+/* Pull the basemap off pure white: darker, desaturated, lower contrast so it
+   reads as cool slate and blends toward the panel. Targets only the MapLibre
+   basemap canvas — the deck.gl plume dots draw on a separate canvas and stay crisp. */
+.maplibregl-canvas {
+  filter: brightness(0.9) saturate(0.78) contrast(0.96);
+}
+
+/* Soft fade where the map meets the sidebar, so the two panes blend instead
+   of hard-contrasting. */
+.map-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 64px;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(31, 39, 50, 0), var(--panel));
+  z-index: 1;
+}
+
 .side-panel {
   width: clamp(260px, 45vw, 420px);
   overflow-y: auto;
