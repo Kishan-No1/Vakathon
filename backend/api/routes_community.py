@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
@@ -13,8 +15,9 @@ class GroundTruthReport(BaseModel):
     smell: bool = False
     visible_flare: bool = False
     notes: str = Field(default="", max_length=500)
-    lat: float | None = None
-    lon: float | None = None
+    # Optional[...] (not `float | None`) so the model builds on Python 3.9 too
+    lat: Optional[float] = None
+    lon: Optional[float] = None
 
 
 class CosignRequest(BaseModel):
