@@ -1,0 +1,15 @@
+{
+  "seed": 42,
+  "n_jitter": 30,
+  "jitter_pos_m": 250.0,
+  "jitter_rate_frac": 0.15,
+  "hard_negative_ranks": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "easy_negatives_per_plume": 2,
+  "easy_negative_min_m": 5000.0,
+  "positive_max_m": 2000.0
+}
