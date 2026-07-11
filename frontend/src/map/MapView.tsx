@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
+import type { StyleSpecification } from "maplibre-gl";
 import type { Plume, ReportedPlume } from "../api/client";
 import { plumeLayer, reportedPlumeLayer } from "./layers/plumeLayer";
-
-const BASEMAP =
-  "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
+import { loadBasemapStyle } from "./basemapStyle";
 
 // Permian basin, straddling the TX/NM line
 const INITIAL_VIEW = {
@@ -35,6 +34,21 @@ export default function MapView({
   onTogglePanel,
 }: Props) {
   const [hovered, setHovered] = useState<Plume | null>(null);
+  // null until the customized style is ready — mounting <Map> once with the
+  // final style avoids a mid-load setStyle swap that can strand tile loading.
+  const [mapStyle, setMapStyle] = useState<StyleSpecification | string | null>(
+    null,
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    loadBasemapStyle().then((style) => {
+      if (!cancelled) setMapStyle(style);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="map-wrap">
@@ -48,7 +62,7 @@ export default function MapView({
         onHover={(info) => setHovered((info.object as Plume) ?? null)}
         getCursor={({ isHovering }) => (isHovering ? "pointer" : "grab")}
       >
-        <Map mapStyle={BASEMAP} />
+        {mapStyle && <Map mapStyle={mapStyle} />}
       </DeckGL>
 
       {hovered && (
