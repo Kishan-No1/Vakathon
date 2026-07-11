@@ -132,6 +132,42 @@ def nearest_facility(plume_id: str) -> dict | None:
     return base
 
 
+def nearest_facility_for_point(lat: float, lon: float) -> dict:
+    """Nearest-facility + 2 km threshold for an arbitrary point not present in
+    plumes.csv (e.g. a resident-pinned location). Always returns a dict —
+    every coordinate is valid input, unlike a plume_id lookup which can be
+    unknown. Plain haversine scan over the 30 facilities; no need for the
+    geopandas bulk-join path join_all() uses for many plumes at once.
+
+    Returns: matched, nearest_distance_m, and (if matched) facility_id,
+    operator, facility_name, facility_lat, facility_lon, distance_m, state
+    (the FACILITY's own state — used as the regulator-lookup default when the
+    caller doesn't supply an explicit state)."""
+    facilities = load_facilities()
+    distances = facilities.apply(
+        lambda f: haversine_m(lat, lon, f.lat, f.lon), axis=1)
+    i = distances.idxmin()
+    f = facilities.loc[i]
+    d = float(distances.loc[i])
+    matched = d <= MAX_MATCH_DISTANCE_M
+
+    base = {"matched": matched, "nearest_distance_m": round(d, 1)}
+    if matched:
+        base.update({
+            "facility_id": f.facility_id, "operator": f.operator,
+            "facility_name": f.facility_name,
+            "facility_lat": float(f.lat), "facility_lon": float(f.lon),
+            "distance_m": round(d, 1), "state": f.state,
+        })
+    else:
+        base.update({
+            "facility_id": None, "operator": None, "facility_name": None,
+            "facility_lat": None, "facility_lon": None, "distance_m": None,
+            "state": None,
+        })
+    return base
+
+
 if __name__ == "__main__":
     df = join_all()
     n_match = int(df["matched"].sum())

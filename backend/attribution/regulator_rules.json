@@ -3,12 +3,27 @@
     "regulator_name": "New Mexico Oil Conservation Division (OCD), EMNRD \u2014 with NM Environment Department (NMED) for air emissions",
     "complaint_mechanism": "NMED \"Report an Environmental Issue or Incident\" online form (https://ents.web.env.nm.gov/public/INCIDENT_HDR_add.php); OCD field offices via https://www.emnrd.nm.gov/ocd/contact-us/",
     "applicable_rule": "19.15.27.9 NMAC \u2014 Statewide Natural Gas Capture Requirements (part of 19.15.27 NMAC, Venting and Flaring of Natural Gas)",
-    "rule_summary": "Requires oil and gas operators to capture no less than 98% of produced natural gas by December 31, 2026 (phased from 2022) and prohibits routine venting and flaring except in emergencies or equipment failure. Administered by the Oil Conservation Commission/Division under EMNRD."
+    "rule_summary": "Requires oil and gas operators to capture no less than 98% of produced natural gas by December 31, 2026 (phased from 2022) and prohibits routine venting and flaring except in emergencies or equipment failure. Administered by the Oil Conservation Commission/Division under EMNRD.",
+    "salutation": "To the New Mexico Oil Conservation Division:",
+    "tone": "formal",
+    "rule_citation": "19.15.27.9 NMAC"
   },
   "Texas": {
     "regulator_name": "Railroad Commission of Texas (RRC) \u2014 with Texas Commission on Environmental Quality (TCEQ) for air emissions",
     "complaint_mechanism": "TCEQ environmental complaint form (https://www.tceq.texas.gov/compliance/complaints, 24-hr line 1-888-777-3186); RRC oil and gas complaints via the appropriate district office (https://www.rrc.texas.gov/oil-and-gas/o-g-complaints/)",
     "applicable_rule": "16 TAC 3.32 \u2014 Statewide Rule 32 (Gas Well Gas and Casinghead Gas Disposition; venting and flaring limitations)",
-    "rule_summary": "Governs disposition of gas and limits routine venting and flaring but permits flaring by exception/administrative approval. Texas has no state-level mandate comparable to New Mexico 98% gas-capture requirement; MethaneSAT data shows Texas Permian operators emit roughly twice the methane per unit of production versus New Mexico."
+    "rule_summary": "Governs disposition of gas and limits routine venting and flaring but permits flaring by exception/administrative approval. Texas has no state-level mandate comparable to New Mexico 98% gas-capture requirement; MethaneSAT data shows Texas Permian operators emit roughly twice the methane per unit of production versus New Mexico.",
+    "salutation": "To the Railroad Commission of Texas:",
+    "tone": "formal",
+    "rule_citation": "16 TAC 3.32"
+  },
+  "Oklahoma": {
+    "regulator_name": "Oklahoma Corporation Commission (OCC), Oil and Gas Conservation Division",
+    "complaint_mechanism": "OCC Crude Oil & Natural Gas complaint form (https://oklahoma.gov/occ/complaints/crude-oil-natural-gas.html, submission portal https://public.occ.ok.gov/Forms/OGComplaints); Oil and Gas Conservation Division 24/7 line 405-521-2331",
+    "applicable_rule": "OAC 165:10-3-15 \u2014 Venting and Flaring",
+    "rule_summary": "Permits venting or flaring up to 50 mcf/d without a permit when marketing the gas is not economically feasible; larger volumes require an administrative permit (Form 1022), with temporary exemptions during flowback. The rule regulates venting/flaring permits only and sets no affirmative gas-capture requirement, unlike New Mexico 98% capture mandate.",
+    "salutation": "To the Oklahoma Corporation Commission:",
+    "tone": "formal",
+    "rule_citation": "OAC 165:10-3-15"
   }
 }

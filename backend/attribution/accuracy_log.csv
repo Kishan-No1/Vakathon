@@ -1,0 +1,3 @@
+timestamp_utc,data_version,n_training_rows,n_positives,n_negatives,n_community_confirmed,model_name,auc_mean,auc_std,acc_mean,acc_std
+2026-07-11T19:28:19.696345+00:00,936ad91f,1728,240,1488,0,gradient_boosting,0.9297,0.0142,0.8614,0.0259
+2026-07-11T19:52:24.428113+00:00,0805ef84,8669,1229,7440,0,gradient_boosting,0.9598,0.0128,0.9136,0.0176

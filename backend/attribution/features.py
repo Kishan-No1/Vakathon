@@ -98,3 +98,18 @@ def features_frame(pairs: list[tuple[pd.Series, pd.Series]],
         facilities = load_facilities()
     return pd.DataFrame([pair_features(p, f, facilities) for p, f in pairs],
                         columns=FEATURE_NAMES)
+
+
+def location_features(distance_m: float, wind_consistency_val: float,
+                      state_match: bool) -> dict:
+    """Feature dict for a by-location candidate (an arbitrary resident-pinned
+    point, not a satellite-detected plume) — omits leak_rate_kg_hr and
+    operator_well_density, which don't exist for a bare coordinate. Valid
+    input for confidence_score.hand_tuned_score() only: the trained model's
+    schema requires the full FEATURE_NAMES columns, and would silently be
+    fed a distribution it never saw in training."""
+    return {
+        "distance_m": distance_m,
+        "wind_consistency": wind_consistency_val,
+        "state_match": int(state_match),
+    }

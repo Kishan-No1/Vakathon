@@ -11,25 +11,37 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
+from .regulator_enrichment import ENRICHMENT
+
 HERE = Path(__file__).resolve().parent
 RULES_PATH = HERE / "regulator_rules.json"
 _REGULATORS_CSV = HERE.parents[1] / "data" / "regulators.csv"  # read-only
 
 
 def regenerate() -> dict:
-    """Rebuild regulator_rules.json from data/regulators.csv."""
+    """Rebuild regulator_rules.json from data/regulators.csv, merging in the
+    hand-authored ENRICHMENT (salutation/tone/rule_citation) per state. A
+    state missing from ENRICHMENT gets a generic auto-derived fallback so the
+    schema always has all 7 keys and this never crashes on an unmapped
+    state."""
     import pandas as pd
 
     df = pd.read_csv(_REGULATORS_CSV)
-    rules = {
-        row["state"]: {
-            "regulator_name": row["regulator_name"].strip(),
+    rules = {}
+    for _, row in df.iterrows():
+        regulator_name = row["regulator_name"].strip()
+        fallback = {
+            "salutation": f"To the {regulator_name}:",
+            "tone": "formal",
+            "rule_citation": row["applicable_rule"].strip(),
+        }
+        rules[row["state"]] = {
+            "regulator_name": regulator_name,
             "complaint_mechanism": row["complaint_mechanism"].strip(),
             "applicable_rule": row["applicable_rule"].strip(),
             "rule_summary": row["rule_summary"].strip(),
+            **ENRICHMENT.get(row["state"], fallback),
         }
-        for _, row in df.iterrows()
-    }
     RULES_PATH.write_text(json.dumps(rules, indent=2))
     print(f"wrote {RULES_PATH.name} with states: {list(rules)}")
     return rules
