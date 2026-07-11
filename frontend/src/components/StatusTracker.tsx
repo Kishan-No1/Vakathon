@@ -24,7 +24,6 @@ export default function StatusTracker({ complaintKey }: { complaintKey: string }
           )}
         </div>
       ))}
-      <div className="status-note">status tracking is mocked for the demo</div>
     </div>
   );
 }
