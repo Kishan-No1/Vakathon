@@ -13,10 +13,12 @@ export interface Plume {
   wind_dir_deg: number;
 }
 
-// Backend serves full state names ("New Mexico" / "Texas"); the UI keys
-// colors and CSS classes off the two-letter abbreviation.
-export function stateAbbr(state: string): "NM" | "TX" {
-  return state === "New Mexico" ? "NM" : "TX";
+// Backend serves full state names ("New Mexico" / "Texas" / "Oklahoma");
+// the UI keys colors and CSS classes off the two-letter abbreviation.
+export function stateAbbr(state: string): "NM" | "TX" | "OK" {
+  if (state === "New Mexico") return "NM";
+  if (state === "Oklahoma") return "OK";
+  return "TX";
 }
 
 export interface Regulator {

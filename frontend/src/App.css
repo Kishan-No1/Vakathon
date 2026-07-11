@@ -153,6 +153,7 @@
 
 .dot-nm { background: var(--nm); }
 .dot-tx { background: var(--tx); }
+.dot-ok { background: var(--ok); }
 
 .legend-hint {
   color: var(--text-dim);
@@ -209,6 +210,7 @@
 
 .state-nm { background: var(--nm); }
 .state-tx { background: var(--tx); }
+.state-ok { background: var(--ok); }
 
 .panel-section {
   border-top: 1px solid var(--border);

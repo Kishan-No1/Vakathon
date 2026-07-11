@@ -63,6 +63,9 @@ export default function MapView({
         <span>
           <i className="dot dot-tx" /> Texas plume
         </span>
+        <span>
+          <i className="dot dot-ok" /> Oklahoma plume
+        </span>
         <span className="legend-hint">dot size = leak rate · click a plume to resolve it</span>
       </div>
 
