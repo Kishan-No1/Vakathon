@@ -1,0 +1,36 @@
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --panel-2: #1c2330;
+  --border: #2d3646;
+  --text: #c9d1d9;
+  --text-dim: #8b949e;
+  --heading: #f0f6fc;
+  --nm: #2dd4bf;
+  --tx: #fb923c;
+  --accent: #3b82f6;
+  --good: #34d399;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 var(--sans);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--heading);
+  margin: 0;
+}
