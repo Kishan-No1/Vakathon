@@ -44,7 +44,7 @@ export default function App() {
             className={mode === "detection" ? "active" : ""}
             onClick={() => setMode("detection")}
           >
-            Detection
+            Environmental report
           </button>
           <button
             className={mode === "citizen" ? "active" : ""}

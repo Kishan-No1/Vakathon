@@ -53,7 +53,7 @@ export default function ClickResolvePanel({ plume }: { plume: Plume }) {
             <div className="facility-name">{attr.facility_name}</div>
           </>
         ) : (
-          <div className="no-match">{attr.display_statement}</div>
+          <div className="operator-name">Natural methane plume</div>
         )}
         <div className="stat-chips">
           <span className="stat-chip">{Math.round(plume.leak_rate_kg_hr)} kg CH₄/hr</span>
