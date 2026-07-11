@@ -19,7 +19,9 @@ export default function StatusTracker({ complaintKey }: { complaintKey: string }
         <div key={s} className={`status-step ${i <= stage ? "done" : ""}`}>
           <span className="status-dot" />
           <span className="status-label">{s}</span>
-          {i < STAGES.length - 1 && <span className="status-bar" />}
+          {i < STAGES.length - 1 && (
+            <span className={`status-bar ${i < stage ? "filled" : ""}`} />
+          )}
         </div>
       ))}
       <div className="status-note">status tracking is mocked for the demo</div>

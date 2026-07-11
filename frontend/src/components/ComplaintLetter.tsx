@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { api } from "../api/client";
+import InlineAlert from "./InlineAlert";
+import Spinner from "./Spinner";
 import StatusTracker from "./StatusTracker";
 
 interface Props {
@@ -34,10 +36,10 @@ export default function ComplaintLetter({ plumeId, cosignCount }: Props) {
       <h3>Complaint letter</h3>
       {!letter && (
         <button className="btn btn-primary" onClick={generate} disabled={loading}>
-          {loading ? "Drafting…" : "Generate complaint letter"}
+          {loading && <Spinner />} {loading ? "Drafting…" : "Generate complaint letter"}
         </button>
       )}
-      {error && <div className="error-note">{error}</div>}
+      {error && <InlineAlert>{error}</InlineAlert>}
       {letter && (
         <>
           <div className="letter-meta">
@@ -47,7 +49,7 @@ export default function ComplaintLetter({ plumeId, cosignCount }: Props) {
           <pre className="letter-body">{letter}</pre>
           <div className="btn-row">
             <button className="btn" onClick={generate} disabled={loading}>
-              {loading ? "Drafting…" : "Regenerate"}
+              {loading && <Spinner />} {loading ? "Drafting…" : "Regenerate"}
             </button>
             {!submitted && (
               <button className="btn btn-primary" onClick={() => setSubmitted(true)}>

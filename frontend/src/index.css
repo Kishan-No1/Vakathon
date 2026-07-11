@@ -1,15 +1,19 @@
 :root {
-  --bg: #0d1117;
-  --panel: #161b22;
-  --panel-2: #1c2330;
-  --border: #2d3646;
-  --text: #c9d1d9;
-  --text-dim: #8b949e;
-  --heading: #f0f6fc;
+  --bg: #f1f3f4;
+  --panel: #ffffff;
+  --panel-2: #f8f9fa;
+  --border: #dadce0;
+  --text: #3c4043;
+  --text-dim: #5f6368;
+  --heading: #202124;
   --nm: #2dd4bf;
   --tx: #fb923c;
-  --accent: #3b82f6;
-  --good: #34d399;
+  --nm-text: #0f766e;
+  --tx-text: #c2410c;
+  --accent: #1a73e8;
+  --good: #15803d;
+  --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --shadow-md: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, "SF Mono", Consolas, monospace;
 }

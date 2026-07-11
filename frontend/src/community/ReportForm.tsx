@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { api, type ReportSummary } from "../api/client";
-import { getIdentity } from "./identity";
+import InlineAlert from "../components/InlineAlert";
+import { useIdentityModal } from "./useIdentityModal";
 
 interface Props {
   plumeId: string;
@@ -14,9 +15,10 @@ export default function ReportForm({ plumeId, onSubmitted }: Props) {
   const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { ensureIdentity, modal } = useIdentityModal();
 
   const submit = async () => {
-    const id = getIdentity(true);
+    const id = await ensureIdentity();
     if (!id) return;
     setBusy(true);
     setError(null);
@@ -79,7 +81,7 @@ export default function ReportForm({ plumeId, onSubmitted }: Props) {
         maxLength={500}
         onChange={(e) => setNotes(e.target.value)}
       />
-      {error && <div className="error-note">{error}</div>}
+      {error && <InlineAlert>{error}</InlineAlert>}
       <div className="btn-row">
         <button className="btn btn-primary" onClick={submit} disabled={busy || (!smell && !flare && !notes)}>
           {busy ? "Submitting…" : "Submit report"}
@@ -87,6 +89,7 @@ export default function ReportForm({ plumeId, onSubmitted }: Props) {
         <button className="btn" onClick={() => setOpen(false)}>Cancel</button>
       </div>
       <div className="form-hint">Your location is attached if you allow it — it helps corroborate the detection.</div>
+      {modal}
     </div>
   );
 }

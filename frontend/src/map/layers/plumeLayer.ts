@@ -7,6 +7,9 @@ export const STATE_COLORS: Record<string, [number, number, number]> = {
   TX: [251, 146, 60],
 };
 
+// matches CSS --heading; deck.gl draws to canvas and can't read CSS vars, keep in sync manually
+const SELECTED_STROKE: [number, number, number, number] = [32, 33, 36, 255];
+
 export function plumeLayer(
   plumes: Plume[],
   selectedId: string | null,
@@ -23,13 +26,13 @@ export function plumeLayer(
     radiusMaxPixels: 28,
     getFillColor: (d) => {
       const c = STATE_COLORS[stateAbbr(d.state)] ?? [200, 200, 200];
-      return [...c, d.plume_id === selectedId ? 255 : 170] as [
+      return [...c, d.plume_id === selectedId ? 255 : 200] as [
         number, number, number, number,
       ];
     },
     getLineColor: (d) =>
-      d.plume_id === selectedId ? [255, 255, 255, 255] : [0, 0, 0, 0],
-    getLineWidth: 2,
+      d.plume_id === selectedId ? SELECTED_STROKE : [0, 0, 0, 0],
+    getLineWidth: 2.5,
     lineWidthUnits: "pixels",
     stroked: true,
     pickable: true,

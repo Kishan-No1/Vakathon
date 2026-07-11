@@ -6,7 +6,7 @@ import type { Plume } from "../api/client";
 import { plumeLayer } from "./layers/plumeLayer";
 
 const BASEMAP =
-  "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
+  "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
 
 // Permian basin, straddling the TX/NM line
 const INITIAL_VIEW = {
@@ -21,9 +21,17 @@ interface Props {
   plumes: Plume[];
   selectedId: string | null;
   onSelect: (p: Plume) => void;
+  panelOpen: boolean;
+  onTogglePanel: () => void;
 }
 
-export default function MapView({ plumes, selectedId, onSelect }: Props) {
+export default function MapView({
+  plumes,
+  selectedId,
+  onSelect,
+  panelOpen,
+  onTogglePanel,
+}: Props) {
   const [hovered, setHovered] = useState<Plume | null>(null);
 
   return (
@@ -57,6 +65,15 @@ export default function MapView({ plumes, selectedId, onSelect }: Props) {
         </span>
         <span className="legend-hint">dot size = leak rate · click a plume to resolve it</span>
       </div>
+
+      <button
+        className="panel-toggle"
+        onClick={onTogglePanel}
+        aria-label={panelOpen ? "Hide panel" : "Show panel"}
+        title={panelOpen ? "Hide panel" : "Show panel"}
+      >
+        {panelOpen ? "›" : "‹"}
+      </button>
     </div>
   );
 }

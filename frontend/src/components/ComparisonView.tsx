@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, type Attribution } from "../api/client";
+import Skeleton from "./Skeleton";
 
 // The real cross-border demo pair: same Tanager-1 overpass 2026-06-07, ~5 km apart
 export const DEMO_PAIR = {
@@ -72,7 +73,7 @@ export default function ComparisonView({ onClose }: { onClose: () => void }) {
             <Side attr={tx} state="TX" />
           </div>
         ) : (
-          <div className="panel-loading">Loading comparison…</div>
+          <Skeleton lines={6} />
         )}
 
         <footer className="compare-footer">

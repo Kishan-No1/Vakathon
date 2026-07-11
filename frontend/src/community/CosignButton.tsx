@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api, type CosignSummary } from "../api/client";
 import { getIdentity } from "./identity";
+import { useIdentityModal } from "./useIdentityModal";
 
 interface Props {
   plumeId: string;
@@ -10,6 +11,7 @@ interface Props {
 export default function CosignButton({ plumeId, onCountChange }: Props) {
   const [summary, setSummary] = useState<CosignSummary | null>(null);
   const [busy, setBusy] = useState(false);
+  const { ensureIdentity, modal } = useIdentityModal();
 
   useEffect(() => {
     api.cosigns(plumeId).then((s) => {
@@ -24,7 +26,7 @@ export default function CosignButton({ plumeId, onCountChange }: Props) {
   );
 
   const sign = async () => {
-    const id = getIdentity(true); // prompts for name+zip if not stored
+    const id = await ensureIdentity();
     if (!id) return;
     setBusy(true);
     try {
@@ -49,6 +51,7 @@ export default function CosignButton({ plumeId, onCountChange }: Props) {
       <span className="cosign-count">
         <strong>{count}</strong> resident{count === 1 ? "" : "s"} co-signed
       </span>
+      {modal}
     </div>
   );
 }

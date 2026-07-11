@@ -10,6 +10,12 @@ export default function App() {
   const [selected, setSelected] = useState<Plume | null>(null);
   const [showCompare, setShowCompare] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [panelOpen, setPanelOpen] = useState(() => window.innerWidth > 768);
+
+  const selectPlume = (p: Plume) => {
+    setSelected(p);
+    setPanelOpen(true);
+  };
 
   useEffect(() => {
     api
@@ -41,7 +47,7 @@ export default function App() {
                 className={`btn btn-jump jump-${st.toLowerCase()}`}
                 onClick={() => {
                   const p = plumes.find((x) => x.plume_id === DEMO_PAIR[st]);
-                  if (p) setSelected(p);
+                  if (p) selectPlume(p);
                 }}
               >
                 {st}
@@ -60,9 +66,11 @@ export default function App() {
         <MapView
           plumes={plumes}
           selectedId={selected?.plume_id ?? null}
-          onSelect={setSelected}
+          onSelect={selectPlume}
+          panelOpen={panelOpen}
+          onTogglePanel={() => setPanelOpen(!panelOpen)}
         />
-        <aside className="side-panel">
+        <aside className={`side-panel${panelOpen ? "" : " collapsed"}`}>
           {selected ? (
             <ClickResolvePanel plume={selected} />
           ) : (

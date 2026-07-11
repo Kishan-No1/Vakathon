@@ -6,14 +6,11 @@ export interface Identity {
 
 const KEY = "vakathon-identity";
 
-export function getIdentity(promptIfMissing = false): Identity | null {
+export function getIdentity(): Identity | null {
   const raw = localStorage.getItem(KEY);
-  if (raw) return JSON.parse(raw) as Identity;
-  if (!promptIfMissing) return null;
-  const name = window.prompt("Your name (shown to neighbors on reports):")?.trim();
-  if (!name) return null;
-  const zip = window.prompt("Your ZIP code:")?.trim() ?? "";
-  const id = { name, zip };
+  return raw ? (JSON.parse(raw) as Identity) : null;
+}
+
+export function setIdentity(id: Identity): void {
   localStorage.setItem(KEY, JSON.stringify(id));
-  return id;
 }
