@@ -21,6 +21,17 @@ export function stateAbbr(state: string): "NM" | "TX" | "OK" {
   return "TX";
 }
 
+/** A plume a resident reports manually (not from satellite data). Client-side
+ * only — plotted as a red dot for the session; not persisted to the backend. */
+export interface ReportedPlume {
+  id: string;
+  lat: number;
+  lon: number;
+  smell: boolean;
+  visible_flare: boolean;
+  notes: string;
+}
+
 export interface Regulator {
   regulator_name: string;
   complaint_mechanism: string;

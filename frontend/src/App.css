@@ -410,6 +410,39 @@
   color: var(--text-dim);
 }
 
+/* ---------- report-a-new-plume ---------- */
+.dot-reported { background: #e53935; }
+.state-reported { background: #e53935; color: #fff; }
+
+.coord-row {
+  display: flex;
+  gap: 10px;
+}
+
+.coord-row label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.coord-row input {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--panel);
+  font-family: var(--mono);
+}
+
+.coord-row input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
 .btn-row {
   display: flex;
   gap: 8px;

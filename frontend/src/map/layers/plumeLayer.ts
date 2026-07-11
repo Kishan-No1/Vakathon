@@ -1,5 +1,5 @@
 import { ScatterplotLayer } from "@deck.gl/layers";
-import { stateAbbr, type Plume } from "../../api/client";
+import { stateAbbr, type Plume, type ReportedPlume } from "../../api/client";
 
 // NM = teal, TX = orange, OK = violet — the state color story used across the app
 export const STATE_COLORS: Record<string, [number, number, number]> = {
@@ -39,5 +39,26 @@ export function plumeLayer(
     pickable: true,
     onClick: (info) => info.object && onClick(info.object),
     updateTriggers: { getFillColor: [selectedId], getLineColor: [selectedId] },
+  });
+}
+
+// Resident-reported "potential new plumes" — red, drawn above the detected plumes
+export const REPORTED_COLOR: [number, number, number] = [229, 57, 53];
+
+export function reportedPlumeLayer(reported: ReportedPlume[]) {
+  return new ScatterplotLayer<ReportedPlume>({
+    id: "reported-plumes",
+    data: reported,
+    getPosition: (d) => [d.lon, d.lat],
+    getRadius: 1200,
+    radiusUnits: "meters",
+    radiusMinPixels: 7,
+    radiusMaxPixels: 20,
+    getFillColor: [...REPORTED_COLOR, 225],
+    getLineColor: [255, 255, 255, 255],
+    getLineWidth: 2,
+    lineWidthUnits: "pixels",
+    stroked: true,
+    pickable: false,
   });
 }

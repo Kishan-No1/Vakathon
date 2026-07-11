@@ -2,8 +2,8 @@ import { useState } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import type { Plume } from "../api/client";
-import { plumeLayer } from "./layers/plumeLayer";
+import type { Plume, ReportedPlume } from "../api/client";
+import { plumeLayer, reportedPlumeLayer } from "./layers/plumeLayer";
 
 const BASEMAP =
   "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
@@ -19,6 +19,7 @@ const INITIAL_VIEW = {
 
 interface Props {
   plumes: Plume[];
+  reportedPlumes: ReportedPlume[];
   selectedId: string | null;
   onSelect: (p: Plume) => void;
   panelOpen: boolean;
@@ -27,6 +28,7 @@ interface Props {
 
 export default function MapView({
   plumes,
+  reportedPlumes,
   selectedId,
   onSelect,
   panelOpen,
@@ -39,7 +41,10 @@ export default function MapView({
       <DeckGL
         initialViewState={INITIAL_VIEW}
         controller
-        layers={[plumeLayer(plumes, selectedId, onSelect)]}
+        layers={[
+          plumeLayer(plumes, selectedId, onSelect),
+          reportedPlumeLayer(reportedPlumes),
+        ]}
         onHover={(info) => setHovered((info.object as Plume) ?? null)}
         getCursor={({ isHovering }) => (isHovering ? "pointer" : "grab")}
       >
@@ -65,6 +70,9 @@ export default function MapView({
         </span>
         <span>
           <i className="dot dot-ok" /> Oklahoma plume
+        </span>
+        <span>
+          <i className="dot dot-reported" /> Potential new plume (reported)
         </span>
         <span className="legend-hint">dot size = leak rate · click a plume to resolve it</span>
       </div>
