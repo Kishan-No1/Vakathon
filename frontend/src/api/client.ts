@@ -66,6 +66,15 @@ export interface GroundTruthReport {
   submitted_at?: string;
 }
 
+/** Resident-entered observations that ground a citizen-report letter. */
+export interface CitizenReportInput {
+  name: string;
+  zip_code: string;
+  smell: boolean;
+  visible_flare: boolean;
+  notes: string;
+}
+
 export interface CosignSummary {
   plume_id: string;
   count: number;
@@ -86,11 +95,19 @@ export const api = {
       json<Attribution>,
     ),
 
-  generateComplaint: (plumeId: string, cosignCount: number) =>
+  generateComplaint: (
+    plumeId: string,
+    cosignCount: number,
+    citizenReport?: CitizenReportInput,
+  ) =>
     fetch(`${BASE}/complaint/generate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ plume_id: plumeId, cosign_count: cosignCount }),
+      body: JSON.stringify({
+        plume_id: plumeId,
+        cosign_count: cosignCount,
+        citizen_report: citizenReport ?? null,
+      }),
     }).then(json<{ letter: string; generator: string }>),
 
   reports: (plumeId: string) =>

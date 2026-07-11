@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { api, type ReportSummary } from "../api/client";
+import { api, type CitizenReportInput, type ReportSummary } from "../api/client";
 import InlineAlert from "../components/InlineAlert";
 import { useIdentityModal } from "./useIdentityModal";
 
 interface Props {
   plumeId: string;
   onSubmitted: (summary: ReportSummary) => void;
+  /** Render the form expanded with no open/cancel affordances (Citizen Report mode). */
+  alwaysOpen?: boolean;
+  /** Receives the submitted observations, e.g. to ground a citizen letter. */
+  onDetails?: (details: CitizenReportInput) => void;
 }
 
-export default function ReportForm({ plumeId, onSubmitted }: Props) {
-  const [open, setOpen] = useState(false);
+export default function ReportForm({ plumeId, onSubmitted, alwaysOpen = false, onDetails }: Props) {
+  const [open, setOpen] = useState(alwaysOpen);
   const [smell, setSmell] = useState(false);
   const [flare, setFlare] = useState(false);
   const [notes, setNotes] = useState("");
@@ -46,10 +50,13 @@ export default function ReportForm({ plumeId, onSubmitted }: Props) {
         ...coords,
       });
       onSubmitted(summary);
-      setOpen(false);
-      setSmell(false);
-      setFlare(false);
-      setNotes("");
+      onDetails?.({ name: id.name, zip_code: id.zip, smell, visible_flare: flare, notes });
+      if (!alwaysOpen) {
+        setOpen(false);
+        setSmell(false);
+        setFlare(false);
+        setNotes("");
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "submit failed");
     } finally {
@@ -86,7 +93,9 @@ export default function ReportForm({ plumeId, onSubmitted }: Props) {
         <button className="btn btn-primary" onClick={submit} disabled={busy || (!smell && !flare && !notes)}>
           {busy ? "Submitting…" : "Submit report"}
         </button>
-        <button className="btn" onClick={() => setOpen(false)}>Cancel</button>
+        {!alwaysOpen && (
+          <button className="btn" onClick={() => setOpen(false)}>Cancel</button>
+        )}
       </div>
       <div className="form-hint">Your location is attached if you allow it — it helps corroborate the detection.</div>
       {modal}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { api } from "../api/client";
+import { api, type CitizenReportInput } from "../api/client";
 import InlineAlert from "./InlineAlert";
 import Spinner from "./Spinner";
 import StatusTracker from "./StatusTracker";
@@ -7,9 +7,11 @@ import StatusTracker from "./StatusTracker";
 interface Props {
   plumeId: string;
   cosignCount: number;
+  /** When set, the letter is a first-person citizen report grounded in these observations. */
+  citizenReport?: CitizenReportInput;
 }
 
-export default function ComplaintLetter({ plumeId, cosignCount }: Props) {
+export default function ComplaintLetter({ plumeId, cosignCount, citizenReport }: Props) {
   const [letter, setLetter] = useState<string | null>(null);
   const [generator, setGenerator] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,7 @@ export default function ComplaintLetter({ plumeId, cosignCount }: Props) {
     setError(null);
     setSubmitted(false);
     try {
-      const res = await api.generateComplaint(plumeId, cosignCount);
+      const res = await api.generateComplaint(plumeId, cosignCount, citizenReport);
       setLetter(res.letter);
       setGenerator(res.generator);
     } catch (e) {

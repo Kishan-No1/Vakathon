@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { api, type Plume } from "./api/client";
 import MapView from "./map/MapView";
 import ClickResolvePanel from "./components/ClickResolvePanel";
+import CitizenReportPanel from "./components/CitizenReportPanel";
 import ComparisonView, { DEMO_PAIR } from "./components/ComparisonView";
 import "./App.css";
+
+type PanelMode = "detection" | "citizen";
 
 export default function App() {
   const [plumes, setPlumes] = useState<Plume[]>([]);
@@ -11,6 +14,7 @@ export default function App() {
   const [showCompare, setShowCompare] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [panelOpen, setPanelOpen] = useState(() => window.innerWidth > 768);
+  const [mode, setMode] = useState<PanelMode>("detection");
 
   const selectPlume = (p: Plume) => {
     setSelected(p);
@@ -57,6 +61,20 @@ export default function App() {
           <button className="btn btn-compare" onClick={() => setShowCompare(true)}>
             ⚖ Compare TX vs NM
           </button>
+          <div className="mode-toggle" role="group" aria-label="Sidebar mode">
+            <button
+              className={mode === "detection" ? "active" : ""}
+              onClick={() => setMode("detection")}
+            >
+              Detection
+            </button>
+            <button
+              className={mode === "citizen" ? "active" : ""}
+              onClick={() => setMode("citizen")}
+            >
+              Citizen Report
+            </button>
+          </div>
         </div>
       </header>
 
@@ -72,14 +90,18 @@ export default function App() {
         />
         <aside className={`side-panel${panelOpen ? "" : " collapsed"}`}>
           {selected ? (
-            <ClickResolvePanel plume={selected} />
+            mode === "detection" ? (
+              <ClickResolvePanel plume={selected} />
+            ) : (
+              <CitizenReportPanel plume={selected} />
+            )
           ) : (
             <div className="panel-placeholder">
               <h2>Click a plume</h2>
               <p>
-                Each dot is a real methane plume detected from orbit. Click one
-                to see who it belongs to, which rule applies, and what your
-                community can do about it.
+                {mode === "detection"
+                  ? "Each dot is a real methane plume detected from orbit. Click one to see who it belongs to, which rule applies, and what your community can do about it."
+                  : "Click the plume nearest to what you saw, then describe your own observations — your report becomes the basis of a complaint letter."}
               </p>
             </div>
           )}

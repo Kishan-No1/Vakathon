@@ -11,7 +11,6 @@ import ComplaintLetter from "./ComplaintLetter";
 import InlineAlert from "./InlineAlert";
 import Skeleton from "./Skeleton";
 import CosignButton from "../community/CosignButton";
-import ReportForm from "../community/ReportForm";
 import ReportsList from "../community/ReportsList";
 
 export default function ClickResolvePanel({ plume }: { plume: Plume }) {
@@ -96,7 +95,10 @@ export default function ClickResolvePanel({ plume }: { plume: Plume }) {
       <section className="panel-section">
         <h3>Community</h3>
         {reports && <ReportsList summary={reports} />}
-        <ReportForm plumeId={plume.plume_id} onSubmitted={setReports} />
+        <div className="form-hint">
+          Saw something yourself? Switch to <strong>Citizen Report</strong> (top
+          right) to file a first-hand report.
+        </div>
         <CosignButton plumeId={plume.plume_id} onCountChange={setCosignCount} />
       </section>
 
