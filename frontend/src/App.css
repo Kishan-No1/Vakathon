@@ -35,9 +35,9 @@
 }
 
 .load-error {
-  background: #fce8e6;
-  color: #c5221f;
-  border-left: 3px solid #c5221f;
+  background: #7f1d1d;
+  color: #fecaca;
+  border-left: 3px solid #f87171;
   padding: 8px 20px;
   font-size: 14px;
 }
@@ -105,9 +105,9 @@
 }
 
 .inline-alert {
-  background: #fce8e6;
-  color: #c5221f;
-  border-left: 3px solid #c5221f;
+  background: #7f1d1d;
+  color: #fecaca;
+  border-left: 3px solid #f87171;
   border-radius: 6px;
   padding: 8px 12px;
   font-size: 13px;
@@ -115,17 +115,24 @@
 }
 
 /* ---------- map overlays ---------- */
+/* These float over the basemap, which stays light — keep them light with
+   explicit dark text so they don't inherit the dark theme's body color. */
 .map-tooltip {
   position: absolute;
   top: 12px;
   left: 12px;
   background: rgba(255, 255, 255, 0.92);
+  color: #3c4043;
   border-radius: 8px;
   box-shadow: var(--shadow-sm);
   padding: 8px 12px;
   font-size: 13px;
   pointer-events: none;
   z-index: 2;
+}
+
+.map-tooltip strong {
+  color: #202124;
 }
 
 .map-legend {
@@ -136,6 +143,7 @@
   flex-direction: column;
   gap: 4px;
   background: rgba(255, 255, 255, 0.92);
+  color: #3c4043;
   border-radius: 8px;
   box-shadow: var(--shadow-sm);
   padding: 8px 12px;
@@ -156,7 +164,7 @@
 .dot-ok { background: var(--ok); }
 
 .legend-hint {
-  color: var(--text-dim);
+  color: #5f6368;
 }
 
 .panel-toggle {
@@ -363,7 +371,7 @@
 .btn-cosign {
   background: var(--good);
   border-color: var(--good);
-  color: #fff;
+  color: #0d1117;
   font-weight: 600;
 }
 
