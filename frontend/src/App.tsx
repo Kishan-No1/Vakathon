@@ -3,7 +3,6 @@ import { api, type Plume } from "./api/client";
 import MapView from "./map/MapView";
 import ClickResolvePanel from "./components/ClickResolvePanel";
 import CitizenReportPanel from "./components/CitizenReportPanel";
-import ComparisonView, { DEMO_PAIR } from "./components/ComparisonView";
 import "./App.css";
 
 type PanelMode = "detection" | "citizen";
@@ -11,7 +10,6 @@ type PanelMode = "detection" | "citizen";
 export default function App() {
   const [plumes, setPlumes] = useState<Plume[]>([]);
   const [selected, setSelected] = useState<Plume | null>(null);
-  const [showCompare, setShowCompare] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [panelOpen, setPanelOpen] = useState(() => window.innerWidth > 768);
   const [mode, setMode] = useState<PanelMode>("detection");
@@ -36,45 +34,24 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <div className="brand">
-          <h1>Vakathon</h1>
+          <h1>Plume Finder</h1>
           <span className="tagline">
             methane detection → attribution → community action
           </span>
         </div>
-        <div className="header-stats">
-          <span>{plumes.length} plumes · Permian basin</span>
-          <span className="demo-jump">
-            demo pair:
-            {(["NM", "TX"] as const).map((st) => (
-              <button
-                key={st}
-                className={`btn btn-jump jump-${st.toLowerCase()}`}
-                onClick={() => {
-                  const p = plumes.find((x) => x.plume_id === DEMO_PAIR[st]);
-                  if (p) selectPlume(p);
-                }}
-              >
-                {st}
-              </button>
-            ))}
-          </span>
-          <button className="btn btn-compare" onClick={() => setShowCompare(true)}>
-            ⚖ Compare TX vs NM
+        <div className="mode-toggle" role="group" aria-label="Sidebar mode">
+          <button
+            className={mode === "detection" ? "active" : ""}
+            onClick={() => setMode("detection")}
+          >
+            Detection
           </button>
-          <div className="mode-toggle" role="group" aria-label="Sidebar mode">
-            <button
-              className={mode === "detection" ? "active" : ""}
-              onClick={() => setMode("detection")}
-            >
-              Detection
-            </button>
-            <button
-              className={mode === "citizen" ? "active" : ""}
-              onClick={() => setMode("citizen")}
-            >
-              Citizen Report
-            </button>
-          </div>
+          <button
+            className={mode === "citizen" ? "active" : ""}
+            onClick={() => setMode("citizen")}
+          >
+            Citizen Report
+          </button>
         </div>
       </header>
 
@@ -107,8 +84,6 @@ export default function App() {
           )}
         </aside>
       </main>
-
-      {showCompare && <ComparisonView onClose={() => setShowCompare(false)} />}
     </div>
   );
 }
